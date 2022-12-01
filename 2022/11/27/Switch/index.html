@@ -20,23 +20,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"ford77.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"بحث...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://ford77.github.io/archives/2022/12/index.html">
+    <meta name="description" content="友链：小米路由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Switch">
+<meta property="og:url" content="https://ford77.github.io/2022/11/27/Switch/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="友链：小米路由">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.miwifi.com/statics/img/wf_pubBG.jpg">
+<meta property="article:published_time" content="2022-11-27T11:59:18.000Z">
+<meta property="article:modified_time" content="2022-11-27T13:01:17.418Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="network">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.miwifi.com/statics/img/wf_pubBG.jpg">
 
 
-<link rel="canonical" href="https://ford77.github.io/archives/2022/12/">
+<link rel="canonical" href="https://ford77.github.io/2022/11/27/Switch/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-cn","comments":"","permalink":"","path":"archives/2022/12/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-cn","comments":true,"permalink":"https://ford77.github.io/2022/11/27/Switch/","path":"2022/11/27/Switch/","title":"Switch"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>الأرشيف | Hexo</title>
+<title>Switch | Hexo</title>
   
 
 
@@ -71,7 +78,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Hexo</h1>
+      <p class="site-title">Hexo</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -147,49 +154,110 @@
 
     </div>
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">هِم..! 3 مقالاً بالمُجمل. واصل الكتابة.</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://ford77.github.io/2022/11/27/Switch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Switch | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Switch
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">نُشر في</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="أُنشأ: 2022-11-27 19:59:18 / عُدل: 21:01:17" itemprop="dateCreated datePublished" datetime="2022-11-27T19:59:18+08:00">2022-11-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="http://www.miwifi.com/">友链：小米路由</a><br><img src="http://www.miwifi.com/statics/img/wf_pubBG.jpg" width="50%"></p>
+<span id="more"></span>
+<p>##常用命令</p>
+<pre><code>sys #系统视图
+dis port vlan #查看
+vlan 10 #新建
+int g0/0/1 #进入
+port link-type access #配置port
+port default vlan 10 #划分
+port trunk allow-pass vlan 10 #放行
+q #返回
+port-group 1 #分组
+group-member g0/0/1 to g0/0/10 g0/0/20 to g0/0/30 #加入端口
+undo vlan 10 #删除vlan
+vlan batch 3 to 10 #批量创建
+</code></pre>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-12-01T21:54:06+08:00"
-              content="2022-12-01">
-          12-01
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/12/01/hello-world/" itemprop="url">
-            <span itemprop="name">Hello World</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/network/" rel="tag"># network</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/23/hexo&markdown/" rel="prev" title="hexo&markdown">
+                  <i class="fa fa-chevron-left"></i> hexo&markdown
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/01/hello-world/" rel="next" title="Hello World">
+                  Hello World <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
 
 </div>
   </main>
