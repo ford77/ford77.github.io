@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ford77.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.13.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":null,"post_header":null,"post_body":null,"coll_header":null,"sidebar":null}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Task 02 Python Excel 自动化之 OpenPyXL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="openpyxl">
+<meta property="og:url" content="https://ford77.github.io/2022/12/02/openpyxl/index.html">
+<meta property="og:site_name" content="Note">
+<meta property="og:description" content="Task 02 Python Excel 自动化之 OpenPyXL">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ford77.github.io/imgs/2.3.png">
+<meta property="article:published_time" content="2022-12-02T07:06:45.000Z">
+<meta property="article:modified_time" content="2022-12-02T07:08:48.835Z">
+<meta property="article:author" content="DL">
+<meta property="article:tag" content="openpyxl">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ford77.github.io/imgs/2.3.png">
+
+
+<link rel="canonical" href="https://ford77.github.io/2022/12/02/openpyxl/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ford77.github.io/2022/12/02/openpyxl/","path":"2022/12/02/openpyxl/","title":"openpyxl"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>openpyxl | Note</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Note</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-video"><a href="/html/" rel="section"><i class="fa fa-archive fa-fw"></i>video</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Task-02-Python-Excel-%E8%87%AA%E5%8A%A8%E5%8C%96%E4%B9%8B-OpenPyXL"><span class="nav-number">1.</span> <span class="nav-text">Task 02 Python Excel 自动化之 OpenPyXL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-0-%E5%8C%85%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">2.0 包的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Excel%E8%AF%BB%E5%8F%96"><span class="nav-number">1.2.</span> <span class="nav-text">2.1 Excel读取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E8%AF%BB%E5%8F%96Excel%E4%B8%AD%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%A1%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1.1 读取Excel中的工作表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AF%BB%E5%8F%96Excel%E6%96%87%E4%BB%B6-%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%81%8F%E5%A5%BD-xlsx-%EF%BC%8C%E6%9F%A5%E7%9C%8B%E8%BF%94%E5%9B%9E%E5%80%BC%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1. 读取Excel文件 用户行为偏好.xlsx  ，查看返回值属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%9F%A5%E7%9C%8B%E5%AF%B9%E5%BA%94%E5%B7%A5%E4%BD%9C%E7%B0%BF%E5%8C%85%E5%90%AB%E7%9A%84-sheet-%E5%B7%A5%E4%BD%9C%E8%A1%A8-%E7%9A%84%E5%90%8D%E7%A7%B0%EF%BC%8C%E8%AF%BB%E5%8F%96%E6%B4%BB%E5%8A%A8%E8%A1%A8"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2. 查看对应工作簿包含的 sheet(工作表) 的名称，读取活动表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%9F%A5%E7%9C%8B%E6%8C%87%E5%AE%9Asheet%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">3. 查看指定sheet信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E8%AF%BB%E5%8F%96%E5%B7%A5%E4%BD%9C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.1.2 读取工作表中的单元格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E8%AF%BB%E5%8F%96%E5%A4%9A%E4%B8%AA%E5%8D%95%E5%85%83%E6%A0%BC%E7%9A%84%E5%80%BC"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.1.3 读取多个单元格的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.1.4 练习题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Excel%E5%86%99%E5%85%A5"><span class="nav-number">1.3.</span> <span class="nav-text">2.2 Excel写入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%B9%B6%E4%BF%9D%E5%AD%98"><span class="nav-number">1.3.1.</span> <span class="nav-text">2.2.1 写入数据并保存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%8E%9F%E6%9C%89%E5%B7%A5%E4%BD%9C%E7%B0%BF%E4%B8%AD%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%B9%B6%E4%BF%9D%E5%AD%98"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1. 原有工作簿中修改数据并保存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E8%A1%A8%E6%A0%BC%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%B9%B6%E4%BF%9D%E5%AD%98"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2. 创建新的表格写入数据并保存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-%E5%B0%86%E5%85%AC%E5%BC%8F%E5%86%99%E5%85%A5%E5%8D%95%E5%85%83%E6%A0%BC%E4%BF%9D%E5%AD%98"><span class="nav-number">1.3.2.</span> <span class="nav-text">2.2.2 将公式写入单元格保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-%E6%8F%92%E5%85%A5%E7%A9%BA%E5%88%97-x2F-%E8%A1%8C"><span class="nav-number">1.3.3.</span> <span class="nav-text">2.2.3 插入空列&#x2F;行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-%E5%88%A0%E9%99%A4"><span class="nav-number">1.3.4.</span> <span class="nav-text">2.2.4 删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-5-%E7%A7%BB%E5%8A%A8"><span class="nav-number">1.3.5.</span> <span class="nav-text">2.2.5 移动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-Excel-%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.4.</span> <span class="nav-text">2.3 Excel 样式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1%E8%AE%BE%E7%BD%AE%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">2.3.1设置字体样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AE%BE%E7%BD%AE%E5%8D%95%E4%B8%AA-cell-%E5%8D%95%E5%85%83%E6%A0%BC-%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">1. 设置单个 cell(单元格) 字体样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AE%E5%A4%9A%E4%B8%AA-cell-%E7%9A%84%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">2. 设置多个 cell 的字体样式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-%E8%AE%BE%E7%BD%AE%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">2.3.2 设置边框样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AE%BE%E7%BD%AE%E5%8D%95%E5%85%83%E6%A0%BC%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">1. 设置单元格边框样式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E8%AE%BE%E7%BD%AE%E5%8D%95%E5%85%83%E6%A0%BC%E5%85%B6%E4%BB%96%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.4.3.</span> <span class="nav-text">2.3.3 设置单元格其他样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E8%AE%BE%E7%BD%AE%E5%8D%95%E5%85%83%E6%A0%BC%E8%83%8C%E6%99%AF%E8%89%B2"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">1. 设置单元格背景色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AE%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">2.设置水平居中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E8%AE%BE%E7%BD%AE%E8%A1%8C%E9%AB%98%E4%B8%8E%E5%88%97%E5%AE%BD"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">3. 设置行高与列宽</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-%E5%90%88%E5%B9%B6%E3%80%81%E5%8F%96%E6%B6%88%E5%90%88%E5%B9%B6%E5%8D%95%E5%85%83%E6%A0%BC"><span class="nav-number">1.4.4.</span> <span class="nav-text">2.3.3 合并、取消合并单元格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-5-%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="nav-number">1.4.5.</span> <span class="nav-text">2.3.5 练习题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A0"><span class="nav-number">1.5.</span> <span class="nav-text">2.4 综合练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-%E5%B0%86-%E4%B8%9A%E5%8A%A1%E8%81%94%E7%B3%BB%E8%A1%A8-xlsx-%E6%8B%86%E5%88%86%E6%88%90%E4%BB%A5%E4%B8%8B%E4%B8%A4%E4%B8%AA-excel%EF%BC%9A"><span class="nav-number">1.5.1.</span> <span class="nav-text">2.4.1 将 业务联系表.xlsx 拆分成以下两个 excel：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-%E5%B0%86-%E5%AE%A2%E6%88%B7%E4%BF%A1%E6%81%AF%E8%A1%A8-xlsx-%E5%92%8C-%E5%AE%A2%E6%88%B7%E5%85%B3%E7%B3%BB%E8%A1%A8-xlsx-%E5%90%88%E5%B9%B6%E6%88%90%E4%B8%80%E4%B8%AAexcel"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.4.2 将 客户信息表.xlsx 和 客户关系表.xlsx 合并成一个excel</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-%E5%90%8E%E8%AE%B0"><span class="nav-number">1.6.</span> <span class="nav-text">2.5 后记</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">DL</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ford77" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;ford77" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ford77.github.io/2022/12/02/openpyxl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="DL">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Note">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="openpyxl | Note">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          openpyxl
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-02 15:06:45 / 修改时间：15:08:48" itemprop="dateCreated datePublished" datetime="2022-12-02T15:06:45+08:00">2022-12-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Task-02-Python-Excel-自动化之-OpenPyXL"><a href="#Task-02-Python-Excel-自动化之-OpenPyXL" class="headerlink" title="Task 02 Python Excel 自动化之 OpenPyXL"></a>Task 02 Python Excel 自动化之 OpenPyXL</h1><span id="more"></span>
+<ul>
+<li><a href="#task-02-python-excel-%E8%87%AA%E5%8A%A8%E5%8C%96%E4%B9%8B-openpyxl">Task 02 Python Excel 自动化之 OpenPyXL</a><ul>
+<li><a href="#20-%E5%8C%85%E7%9A%84%E5%AE%89%E8%A3%85">2.0 包的安装</a></li>
+<li><a href="#21-excel%E8%AF%BB%E5%8F%96">2.1 Excel读取</a><ul>
+<li><a href="#211-%E8%AF%BB%E5%8F%96excel%E4%B8%AD%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%A1%A8">2.1.1 读取Excel中的工作表</a><ul>
+<li><a href="#1-%E8%AF%BB%E5%8F%96excel%E6%96%87%E4%BB%B6-%E7%94%A8%E6%88%B7%E8%A1%8C%E4%B8%BA%E5%81%8F%E5%A5%BDxlsx--%E6%9F%A5%E7%9C%8B%E8%BF%94%E5%9B%9E%E5%80%BC%E5%B1%9E%E6%80%A7">1. 读取Excel文件 <code>用户行为偏好.xlsx </code> ，查看返回值属性</a></li>
+<li><a href="#2-%E6%9F%A5%E7%9C%8B%E5%AF%B9%E5%BA%94%E5%B7%A5%E4%BD%9C%E7%B0%BF%E5%8C%85%E5%90%AB%E7%9A%84-sheet%E5%B7%A5%E4%BD%9C%E8%A1%A8-%E7%9A%84%E5%90%8D%E7%A7%B0%E8%AF%BB%E5%8F%96%E6%B4%BB%E5%8A%A8%E8%A1%A8">2. 查看对应工作簿包含的 sheet(工作表) 的名称，读取活动表</a></li>
+<li><a href="#3-%E6%9F%A5%E7%9C%8B%E6%8C%87%E5%AE%9Asheet%E4%BF%A1%E6%81%AF">3. 查看指定sheet信息</a></li>
+</ul>
+</li>
+<li><a href="#212-%E8%AF%BB%E5%8F%96%E5%B7%A5%E4%BD%9C%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC">2.1.2 读取工作表中的单元格</a></li>
+<li><a href="#213-%E8%AF%BB%E5%8F%96%E5%A4%9A%E4%B8%AA%E5%8D%95%E5%85%83%E6%A0%BC%E7%9A%84%E5%80%BC">2.1.3 读取多个单元格的值</a></li>
+<li><a href="#214-%E7%BB%83%E4%B9%A0%E9%A2%98">2.1.4 练习题</a></li>
+</ul>
+</li>
+<li><a href="#22-excel%E5%86%99%E5%85%A5">2.2 Excel写入</a><ul>
+<li><a href="#221-%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%B9%B6%E4%BF%9D%E5%AD%98">2.2.1 写入数据并保存</a><ul>
+<li><a href="#1-%E5%8E%9F%E6%9C%89%E5%B7%A5%E4%BD%9C%E7%B0%BF%E4%B8%AD%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%B9%B6%E4%BF%9D%E5%AD%98">1. 原有工作簿中修改数据并保存</a></li>
+<li><a href="#2-%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E8%A1%A8%E6%A0%BC%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E5%B9%B6%E4%BF%9D%E5%AD%98">2. 创建新的表格写入数据并保存</a></li>
+</ul>
+</li>
+<li><a href="#222-%E5%B0%86%E5%85%AC%E5%BC%8F%E5%86%99%E5%85%A5%E5%8D%95%E5%85%83%E6%A0%BC%E4%BF%9D%E5%AD%98">2.2.2 将公式写入单元格保存</a></li>
+<li><a href="#223-%E6%8F%92%E5%85%A5%E7%A9%BA%E5%88%97%E8%A1%8C">2.2.3 插入空列&#x2F;行</a></li>
+<li><a href="#224-%E5%88%A0%E9%99%A4">2.2.4 删除</a></li>
+<li><a href="#225-%E7%A7%BB%E5%8A%A8">2.2.5 移动</a></li>
+</ul>
+</li>
+<li><a href="#23-excel-%E6%A0%B7%E5%BC%8F">2.3 Excel 样式</a><ul>
+<li><a href="#231%E8%AE%BE%E7%BD%AE%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F">2.3.1设置字体样式</a><ul>
+<li><a href="#1-%E8%AE%BE%E7%BD%AE%E5%8D%95%E4%B8%AA-cell%E5%8D%95%E5%85%83%E6%A0%BC-%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F">1. 设置单个 cell(单元格) 字体样式</a></li>
+<li><a href="#2-%E8%AE%BE%E7%BD%AE%E5%A4%9A%E4%B8%AA-cell-%E7%9A%84%E5%AD%97%E4%BD%93%E6%A0%B7%E5%BC%8F">2. 设置多个 cell 的字体样式</a></li>
+</ul>
+</li>
+<li><a href="#232-%E8%AE%BE%E7%BD%AE%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F">2.3.2 设置边框样式</a><ul>
+<li><a href="#1-%E8%AE%BE%E7%BD%AE%E5%8D%95%E5%85%83%E6%A0%BC%E8%BE%B9%E6%A1%86%E6%A0%B7%E5%BC%8F">1. 设置单元格边框样式</a></li>
+</ul>
+</li>
+<li><a href="#233-%E8%AE%BE%E7%BD%AE%E5%8D%95%E5%85%83%E6%A0%BC%E5%85%B6%E4%BB%96%E6%A0%B7%E5%BC%8F">2.3.3 设置单元格其他样式</a><ul>
+<li><a href="#1-%E8%AE%BE%E7%BD%AE%E5%8D%95%E5%85%83%E6%A0%BC%E8%83%8C%E6%99%AF%E8%89%B2">1. 设置单元格背景色</a></li>
+<li><a href="#2%E8%AE%BE%E7%BD%AE%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD">2.设置水平居中</a></li>
+<li><a href="#3-%E8%AE%BE%E7%BD%AE%E8%A1%8C%E9%AB%98%E4%B8%8E%E5%88%97%E5%AE%BD">3. 设置行高与列宽</a></li>
+</ul>
+</li>
+<li><a href="#233-%E5%90%88%E5%B9%B6%E5%8F%96%E6%B6%88%E5%90%88%E5%B9%B6%E5%8D%95%E5%85%83%E6%A0%BC">2.3.3 合并、取消合并单元格</a></li>
+<li><a href="#235-%E7%BB%83%E4%B9%A0%E9%A2%98">2.3.5 练习题</a></li>
+</ul>
+</li>
+<li><a href="#24-%E7%BB%BC%E5%90%88%E7%BB%83%E4%B9%A0">2.4 综合练习</a><ul>
+<li><a href="#241-%E5%B0%86-%E4%B8%9A%E5%8A%A1%E8%81%94%E7%B3%BB%E8%A1%A8xlsx-%E6%8B%86%E5%88%86%E6%88%90%E4%BB%A5%E4%B8%8B%E4%B8%A4%E4%B8%AA-excel">2.4.1 将 业务联系表.xlsx 拆分成以下两个 excel：</a></li>
+<li><a href="#242-%E5%B0%86-%E5%AE%A2%E6%88%B7%E4%BF%A1%E6%81%AF%E8%A1%A8xlsx-%E5%92%8C-%E5%AE%A2%E6%88%B7%E5%85%B3%E7%B3%BB%E8%A1%A8xlsx-%E5%90%88%E5%B9%B6%E6%88%90%E4%B8%80%E4%B8%AAexcel">2.4.2 将 客户信息表.xlsx 和 客户关系表.xlsx 合并成一个excel</a></li>
+</ul>
+</li>
+<li><a href="#25-%E5%90%8E%E8%AE%B0">2.5 后记</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-0-包的安装"><a href="#2-0-包的安装" class="headerlink" title="2.0 包的安装"></a>2.0 包的安装</h2><p>操作难度：⭐</p>
+<p>打开 CMD&#x2F;Terminal 进入到自己环境后，执行下面语句安装<code>openpyxl</code>模块。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install openpyxl</span><br></pre></td></tr></table></figure>
+
+<p>注：openpyxl可以读&#x2F;写 .xlsx &#x2F;.xlsm &#x2F;.xltx &#x2F;.xltm 的格式文件，但是不支持去读 &#x2F;.xls 格式；读取 xls 格式，可以安装 <strong>xlrd</strong> 模块，<code>pip3 install xlrd</code>，本章节以 &#x2F;.xlsx 格式为主。</p>
+<h2 id="2-1-Excel读取"><a href="#2-1-Excel读取" class="headerlink" title="2.1 Excel读取"></a>2.1 Excel读取</h2><p> 项目难度：⭐</p>
+<ul>
+<li>Excel 全称为 Microsoft Office Excel，2003年版本的是 xls 格式，2007和2007年之后的版本是 xlsx 格式。</li>
+<li>xlsx 格式通过 <code>openpyxl</code> 模块打开； xls 格式通过 <code>xlwt</code> 模块写，<code>xlrd</code> 模块读取。</li>
+<li>本文以 xlsx 模式为例</li>
+</ul>
+<h3 id="2-1-1-读取Excel中的工作表"><a href="#2-1-1-读取Excel中的工作表" class="headerlink" title="2.1.1 读取Excel中的工作表"></a>2.1.1 读取Excel中的工作表</h3><p><strong>关于路径：</strong></p>
+<p>文件应在当前工作目录才可直接用相对路径引用，可导入<code>os</code>，使用函数<code>os.getcwd()</code>弄清楚当前工作目录是什么，可使用<code>os.chdir()</code>改变当前工作目录，具体可参考第一章节。（此处显现为相对路径）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取当前工作目录</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="built_in">print</span>(os.getcwd())</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">root_path = <span class="string">&#x27;./OpenPyXL_test/&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-读取Excel文件-用户行为偏好-xlsx-，查看返回值属性"><a href="#1-读取Excel文件-用户行为偏好-xlsx-，查看返回值属性" class="headerlink" title="1. 读取Excel文件 用户行为偏好.xlsx  ，查看返回值属性"></a>1. 读取Excel文件 <code>用户行为偏好.xlsx </code> ，查看返回值属性</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入模块，查看属性</span></span><br><span class="line"><span class="keyword">import</span> openpyxl</span><br><span class="line"></span><br><span class="line">wb = openpyxl.load_workbook(root_path+<span class="string">&#x27;用户行为偏好.xlsx&#x27;</span>)</span><br><span class="line"><span class="built_in">type</span>(wb)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>openpyxl.workbook.workbook.Workbook
+</code></pre>
+<p>【代码解释】</p>
+<p>这里我们使用 openpyxl 中的 load_workbook 函数来加载指定的 xlsx 文件，。</p>
+<ul>
+<li>openpyxl.load_workbook(<br>  filename,<br>  read_only&#x3D;False,<br>  keep_vba&#x3D;False,<br>  data_only&#x3D;False,<br>  keep_links&#x3D;True,<br>  )</li>
+</ul>
+<p>load_workbook 函数有五个参数，除 filename 外，其他参数都有默认值，各参数含义如下：</p>
+<ul>
+<li><p><code>filename</code>: str 类型，表示要打开的文件的相对&#x2F;绝对路径；</p>
+</li>
+<li><p><code>read_only</code>: bool 类型，是否以只读模式打开文件，默认值为 False，可读写；</p>
+</li>
+<li><p><code>keep_vba</code>: bool 类型，是否保留文件中的 vba 内容（即使保留了也不一定在代码中能使用），默认值为 False，不保留；</p>
+</li>
+<li><p><code>data_only</code>: bool 类型，如果单元格中是 excel 公式，是以公式计算后的值的形式显示还是以公式内容形式显示，默认值为 False，以公式内容形式展示；</p>
+</li>
+<li><p><code>keep_links</code>: bool 类型，是否保留单元格中的外链，默认值为 True，保留外链；</p>
+</li>
+<li><p>返回值类型: <code>openpyxl.workbook.Workbook</code></p>
+</li>
+</ul>
+<p>如无特殊要求，我们只需要指定<code>filename</code>参数即可。</p>
+<p>【小知识】</p>
+<p><strong>import * 和from…import…</strong></p>
+<p><code>import *</code>和<code>from...import...</code>的区别</p>
+<ul>
+<li><code>import</code>导入一个模块，相当于导入的是一个文件夹，相对路径。</li>
+<li><code>from...import...</code>导入了一个模块中的一个函数，相当于文件夹中的文件，绝对路径。</li>
+</ul>
+<h4 id="2-查看对应工作簿包含的-sheet-工作表-的名称，读取活动表"><a href="#2-查看对应工作簿包含的-sheet-工作表-的名称，读取活动表" class="headerlink" title="2. 查看对应工作簿包含的 sheet(工作表) 的名称，读取活动表"></a>2. 查看对应工作簿包含的 sheet(工作表) 的名称，读取活动表</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入模块中的函数，查询对应表的名称</span></span><br><span class="line"><span class="built_in">print</span>(wb.sheetnames)</span><br></pre></td></tr></table></figure>
+
+<pre><code>[&#39;订单时长分布&#39;, &#39;Sheet3&#39;]
+</code></pre>
+<p>【代码解释】</p>
+<p>这里我们使用 <code>openpyxl.workbook.Workbook</code> 类对象的 <code>sheetnames</code> 属性来获取读取的工作簿中包含的 sheet(工作表) 的名称。</p>
+<p>通过上述代码输出内容，我们可以知道 <code>用户行为偏好.xlsx</code> 中包含两个 sheet(工作表)，分别是：订单时长分布、 Sheet3。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取工作簿的活动表</span></span><br><span class="line"><span class="comment"># 活动表是工作簿在 Excel 中打开时出现的工作表，在取得 Worksheet 对象后，可通过 title 属性取得它的名称。</span></span><br><span class="line">active_sheet = wb.active</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;active_sheet对象: <span class="subst">&#123;active_sheet&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;active_sheet 名称: <span class="subst">&#123;active_sheet.title&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>active_sheet对象: &lt;Worksheet &quot;订单时长分布&quot;&gt;
+active_sheet 名称: 订单时长分布
+</code></pre>
+<p>【小知识】</p>
+<p>活动表是可以修改的，在我们正常打开excel，完成修改后，保存excel，在关闭 excel 前显示的 sheet 就是活动表。</p>
+<h4 id="3-查看指定sheet信息"><a href="#3-查看指定sheet信息" class="headerlink" title="3. 查看指定sheet信息"></a>3. 查看指定sheet信息</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过传递表名字符串读取表、类型和名称、内容占据的大小</span></span><br><span class="line">sheet = wb.get_sheet_by_name(<span class="string">&#x27;Sheet3&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;sheet: <span class="subst">&#123;sheet&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;type(sheet): <span class="subst">&#123;<span class="built_in">type</span>(sheet)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;sheet.title: <span class="subst">&#123;sheet.title&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;sheet.dimensions: <span class="subst">&#123;sheet.dimensions&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>sheet: &lt;Worksheet &quot;Sheet3&quot;&gt;
+type(sheet): &lt;class &#39;openpyxl.worksheet.worksheet.Worksheet&#39;&gt;
+sheet.title: Sheet3
+sheet.dimensions: A1:I17
+</code></pre>
+<p>【代码解释】</p>
+<p>这里我们使用 <code>openpyxl.workbook.Workbook</code> 类对象的 <code>get_sheet_by_name</code> 方法，通过指定 sheetname 的方式来获取读取的工作簿中指定的 sheet(工作表) 对象。</p>
+<p>并使用 <code>openpyxl.worksheet.worksheet.Worksheet</code> 类对象的一些属性来获取 sheet 的基本信息，比如 <code>Worksheet.title</code>获取 sheet 名称，<code>Worksheet.dimensions</code> 获取 sheet 中值的范围。</p>
+<p>Workbook.get_sheet_by_name(name) 函数只有一个参数，就是：sheetname(工作表名称)，功能是：通过 sheetname 获取到 Worksheet 对象，除了通过函数的方式获取到 Worksheet 对象，你还可以提过索引的方式，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wb[<span class="string">&#x27;Sheet3&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-2-读取工作表中的单元格"><a href="#2-1-2-读取工作表中的单元格" class="headerlink" title="2.1.2 读取工作表中的单元格"></a>2.1.2 读取工作表中的单元格</h3><p><img data-src="/./imgs/2.3.png" alt="image-20211110131533928"></p>
+<p><strong>Cell(Excel单元格)</strong></p>
+<ul>
+<li>Cell 对象有一个 value 属性，包含这个单元格中保存的值。</li>
+<li>Cell 对象也有 row 、column 和 coordinate 属性，提供该单元格的位置信息。</li>
+<li>Excel 用字母指定列，在Z列之后，列开始使用两个字母：AA、AB等，所以在调用的 cell() 方法时，可传入整数作为 row 和 column 关键字参数，也可以得到一个单元格。</li>
+<li>注：第一行或第一列的整数取1，而不是0.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从表中取得单元格 在 2.1.1 中我们已经读取过工作簿了 返回结果存储变量为 wb</span></span><br><span class="line"><span class="comment">## 获取表格名称</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;sheetnames: <span class="subst">&#123;wb.sheetnames&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>sheetnames: [&#39;订单时长分布&#39;, &#39;Sheet3&#39;]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取指定sheet</span></span><br><span class="line">sheet = wb.get_sheet_by_name(<span class="string">&#x27;订单时长分布&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过单元格位置获取单元格对象，如：B1</span></span><br><span class="line">a = sheet[<span class="string">&#x27;B1&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;sheet[B1&#x27;]: <span class="subst">&#123;a&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取并打印 B1 单元格的文本内容</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;sheet[B1&#x27;].value: <span class="subst">&#123;a.value&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取并打印 B1 单元格所在行、列和数值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;Row: <span class="subst">&#123;a.row&#125;</span>, Column: <span class="subst">&#123;a.column&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取并打印 B1 单元格坐标 和 值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;Cell <span class="subst">&#123;a.coordinate&#125;</span> is <span class="subst">&#123;a.value&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>sheet[B1&#39;]: &lt;Cell &#39;订单时长分布&#39;.B1&gt;
+sheet[B1&#39;].value: 日期
+Row: 1, Column: 2
+Cell B1 is 日期
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取并打印出 B列 前8行的奇数行单元格的值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">8</span>,<span class="number">2</span>):</span><br><span class="line">    <span class="built_in">print</span>(i, sheet.cell(row=i,column=<span class="number">2</span>).value)</span><br></pre></td></tr></table></figure>
+
+<pre><code>1 日期
+3 2020-07-24 00:00:00
+5 2020-07-24 00:00:00
+7 2020-07-24 00:00:00
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 确定表格的最大行数和最大列数，即表的大小</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;sheet.max_row: <span class="subst">&#123;sheet.max_row&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;sheet.max_column: <span class="subst">&#123;sheet.max_column&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>sheet.max_row: 14
+sheet.max_column: 4
+</code></pre>
+<h3 id="2-1-3-读取多个单元格的值"><a href="#2-1-3-读取多个单元格的值" class="headerlink" title="2.1.3 读取多个单元格的值"></a>2.1.3 读取多个单元格的值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法一：直接通过sheet索引，A1到C8区域的值</span></span><br><span class="line">cells = sheet[<span class="string">&#x27;A1:C8&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;type(cells): <span class="subst">&#123;<span class="built_in">type</span>(cells)&#125;</span> \n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历元组 print每一个cell值</span></span><br><span class="line"><span class="keyword">for</span> rows <span class="keyword">in</span> cells:</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> rows:</span><br><span class="line">        <span class="built_in">print</span>(cell.value, end=<span class="string">&quot; |&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>type(cells): &lt;class &#39;tuple&#39;&gt; 
+
+编号 |日期 |行为时长 |
+
+71401.30952380953 |2020-07-24 00:00:00 |a |
+
+71401.30952380953 |2020-07-24 00:00:00 |b |
+
+71401.30952380953 |2020-07-24 00:00:00 |c |
+
+71401.30952380953 |2020-07-24 00:00:00 |d |
+
+71401.30952380953 |2020-07-24 00:00:00 |e |
+
+71401.30952380953 |2020-07-24 00:00:00 |f |
+
+71401.30952380953 |2020-07-24 00:00:00 |g |
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法二：sheet.iter_rows函数 按行获取数据</span></span><br><span class="line">rows = sheet.iter_rows(min_row=<span class="number">1</span>, max_row=<span class="number">8</span>, min_col=<span class="number">1</span>, max_col=<span class="number">3</span>)</span><br><span class="line"><span class="comment"># 遍历元组 print每一个cell值</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> rows:</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> row:</span><br><span class="line">        <span class="built_in">print</span>(cell.value, end=<span class="string">&quot; |&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>编号 |日期 |行为时长 |
+
+71401.30952380953 |2020-07-24 00:00:00 |a |
+
+71401.30952380953 |2020-07-24 00:00:00 |b |
+
+71401.30952380953 |2020-07-24 00:00:00 |c |
+
+71401.30952380953 |2020-07-24 00:00:00 |d |
+
+71401.30952380953 |2020-07-24 00:00:00 |e |
+
+71401.30952380953 |2020-07-24 00:00:00 |f |
+
+71401.30952380953 |2020-07-24 00:00:00 |g |
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方法三：sheet.iter_cols函数 按列获取数据</span></span><br><span class="line">cols = sheet.iter_cols(min_row=<span class="number">1</span>, max_row=<span class="number">4</span>, min_col=<span class="number">1</span>, max_col=<span class="number">3</span>)</span><br><span class="line"><span class="comment"># 遍历元组 print每一个cell值</span></span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> cols:</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> col:</span><br><span class="line">        <span class="built_in">print</span>(cell.value, end=<span class="string">&quot; |&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;\n&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>编号 |71401.30952380953 |71401.30952380953 |71401.30952380953 |
+
+日期 |2020-07-24 00:00:00 |2020-07-24 00:00:00 |2020-07-24 00:00:00 |
+
+行为时长 |a |b |c |
+</code></pre>
+<h3 id="2-1-4-练习题"><a href="#2-1-4-练习题" class="headerlink" title="2.1.4 练习题"></a>2.1.4 练习题</h3><p>找出<code>用户行为偏好.xlsx</code>中 Sheet3 表中空着的格子，并输出这些格子的坐标</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line">exl = load_workbook(root_path+<span class="string">&#x27;用户行为偏好.xlsx&#x27;</span>)</span><br><span class="line">sheet3 = exl.get_sheet_by_name(<span class="string">&#x27;Sheet3&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sheet3.dimensions</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;A1:I17&#39;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接通过sheet索引，sheet3.dimensions获取sheet数据区域</span></span><br><span class="line">cells = sheet3[sheet3.dimensions]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历元组 判断每一个cell值是否为空</span></span><br><span class="line"><span class="keyword">for</span> rows <span class="keyword">in</span> cells:</span><br><span class="line">    <span class="keyword">for</span> cell <span class="keyword">in</span> rows:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> cell.value:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&#x27;<span class="subst">&#123;cell.coordinate&#125;</span> is None \n&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>D3 is None 
+
+D8 is None 
+
+G10 is None 
+</code></pre>
+<h2 id="2-2-Excel写入"><a href="#2-2-Excel写入" class="headerlink" title="2.2 Excel写入"></a>2.2 Excel写入</h2><p> 项目难度：⭐</p>
+<h3 id="2-2-1-写入数据并保存"><a href="#2-2-1-写入数据并保存" class="headerlink" title="2.2.1 写入数据并保存"></a>2.2.1 写入数据并保存</h3><h4 id="1-原有工作簿中修改数据并保存"><a href="#1-原有工作簿中修改数据并保存" class="headerlink" title="1. 原有工作簿中修改数据并保存"></a>1. 原有工作簿中修改数据并保存</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 导入 openpyxl 中的 load_workbook 函数</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 获取指定 excel文件对象 Workbook</span></span><br><span class="line">exl = load_workbook(filename=root_path+<span class="string">&#x27;用户行为偏好.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment"># 3) 通过指定 sheetname 从 Workbook 中获取 sheet 对象 Worksheet</span></span><br><span class="line">sheet = exl.get_sheet_by_name(<span class="string">&#x27;Sheet3&#x27;</span>)</span><br><span class="line"><span class="comment"># 4) 通过索引方式获取指定 cell 值，并重新赋值</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;修改前 sheet[&#x27;A1&#x27;]: <span class="subst">&#123;sheet[<span class="string">&#x27;A1&#x27;</span>].value&#125;</span>&quot;</span>)</span><br><span class="line">sheet[<span class="string">&#x27;A1&#x27;</span>].value = <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;修改后 sheet[&#x27;A1&#x27;]: <span class="subst">&#123;sheet[<span class="string">&#x27;A1&#x27;</span>].value&#125;</span>&quot;</span>)</span><br><span class="line"><span class="comment"># 5) 保存修改后的内容</span></span><br><span class="line"><span class="comment"># 如果 filename 和原文件同名，则是直接在原文件中修改；</span></span><br><span class="line"><span class="comment"># 否则会新建一个 excel 文件，并保存内容</span></span><br><span class="line">exl.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)  <span class="comment"># 保存到一个新文件中 新文件名称为：用户行为偏好_1.xlsx</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>修改前 sheet[&#39;A1&#39;]: 1
+修改后 sheet[&#39;A1&#39;]: hello world
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 验证保存修改内容是否成功</span></span><br><span class="line">exl_1 = load_workbook(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment"># 我们将原表中 Sheet3 中的 A1 值改为了 &#x27;hello world&#x27;</span></span><br><span class="line"><span class="comment"># 所以读取保存文件，查看对应值是否为 &#x27;hello world&#x27; 即可</span></span><br><span class="line">a1 = exl_1[<span class="string">&#x27;Sheet3&#x27;</span>][<span class="string">&#x27;A1&#x27;</span>].value</span><br><span class="line"><span class="keyword">if</span> a1 == <span class="string">&#x27;hello world&#x27;</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;修改保存成功啦～，exl_1[&#x27;Sheet3&#x27;][&#x27;A1&#x27;].value = <span class="subst">&#123;a1&#125;</span>&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;修改保存有问题，现在exl_1[&#x27;Sheet3&#x27;][&#x27;A1&#x27;].value = <span class="subst">&#123;a1&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>修改保存成功啦～，exl_1[&#39;Sheet3&#39;][&#39;A1&#39;].value = hello world
+</code></pre>
+<p>【代码解释】</p>
+<p>从这里我们可以看到，我们只需要获取到 sheet 中的 cell 对象后，就可以通过改变 cell.value 的值来改变 对应单元格中的值，然后使用 Workbook 对象的 save 函数可以将修改后的工作簿内容保存起来。</p>
+<h4 id="2-创建新的表格写入数据并保存"><a href="#2-创建新的表格写入数据并保存" class="headerlink" title="2. 创建新的表格写入数据并保存"></a>2. 创建新的表格写入数据并保存</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 导入 openpyxl 中的 Workbook 类</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> Workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 初始化一个 Workbook 对象</span></span><br><span class="line">wb = Workbook()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;默认sheet：<span class="subst">&#123;wb.sheetnames&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3) 通过 Workbook 对象的 create_sheet 函数创建一个 sheet</span></span><br><span class="line"><span class="comment"># title sheet 名称</span></span><br><span class="line"><span class="comment"># index sheet 位置，默认从0开始</span></span><br><span class="line">sheet = wb.create_sheet(title=<span class="string">&#x27;mysheet&#x27;</span>, index=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;添加后sheet：<span class="subst">&#123;wb.sheetnames&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4) 在新建的 sheet 中写入数据</span></span><br><span class="line"><span class="comment"># 比如 在 A1 单元格中写入 &#x27;this is test&#x27;</span></span><br><span class="line">sheet[<span class="string">&#x27;A1&#x27;</span>].value = <span class="string">&#x27;this is test&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;sheet[&#x27;A1&#x27;].value = <span class="subst">&#123;sheet[<span class="string">&#x27;A1&#x27;</span>].value&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存</span></span><br><span class="line">wb.save(root_path+<span class="string">&#x27;creat_sheet_test.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>默认sheet：[&#39;Sheet&#39;]
+添加后sheet：[&#39;mysheet&#39;, &#39;Sheet&#39;]
+sheet[&#39;A1&#39;].value = this is test
+</code></pre>
+<h3 id="2-2-2-将公式写入单元格保存"><a href="#2-2-2-将公式写入单元格保存" class="headerlink" title="2.2.2 将公式写入单元格保存"></a>2.2.2 将公式写入单元格保存</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 导入 openpyxl 中的 load_workbook 函数</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 获取指定 excel文件对象 Workbook</span></span><br><span class="line">exl_1 = load_workbook(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment"># 3) 通过指定 sheetname 从 Workbook 中获取 sheet 对象 Worksheet</span></span><br><span class="line">sheet = exl_1[<span class="string">&#x27;订单时长分布&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;订单时长分布 值范围: <span class="subst">&#123;sheet.dimensions&#125;</span>&#x27;</span>)      <span class="comment">#先查看原有表格的单元格范围，防止替代原有数据</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>订单时长分布 值范围: A1:D14
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单元格 A15 中写入 合计</span></span><br><span class="line">sheet[<span class="string">&#x27;A15&#x27;</span>].value = <span class="string">&#x27;合计&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单元格 D15 中写入求和公式：SUM(D2:D14)</span></span><br><span class="line">sheet[<span class="string">&#x27;D15&#x27;</span>] = <span class="string">&#x27;=SUM(D2:D14)&#x27;</span></span><br><span class="line">exl_1.save(filename=<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 xlwings 打开 excel 文件然后保存 使写入的 公式生效</span></span><br><span class="line"><span class="keyword">import</span> xlwings <span class="keyword">as</span> xw </span><br><span class="line"><span class="comment"># 打开工作簿</span></span><br><span class="line">app = xw.App(visible=<span class="literal">False</span>, add_book=<span class="literal">False</span>)</span><br><span class="line">wb = app.books.<span class="built_in">open</span>(<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)  </span><br><span class="line">wb.save()</span><br><span class="line"><span class="comment"># 关闭工作簿</span></span><br><span class="line">wb.close()</span><br><span class="line">app.quit()</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 验证写入是否成功</span></span><br><span class="line"><span class="comment"># 1) 获取指定 excel文件对象 Workbook，</span></span><br><span class="line"><span class="comment">#    并设置 data_only=True，表示读取的时候如果单元格内是公式的话，以公式计算后的值的形式显示</span></span><br><span class="line">exl_2 = load_workbook(filename = <span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>, data_only=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 2) 打印相关信息</span></span><br><span class="line">sheet = exl_2[<span class="string">&#x27;订单时长分布&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;sheet[&#x27;A15&#x27;]=<span class="subst">&#123;sheet[<span class="string">&#x27;A15&#x27;</span>].value&#125;</span>，sheet[&#x27;D15&#x27;]=<span class="subst">&#123;sheet[<span class="string">&#x27;D15&#x27;</span>].value&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;sheet[<span class="string">&#x27;D1&#x27;</span>].value&#125;</span> 求和值为SUM(D2:D14)=<span class="subst">&#123;sheet[<span class="string">&#x27;D15&#x27;</span>].value&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>sheet[&#39;A15&#39;]=合计，sheet[&#39;D15&#39;]=4004.7261561561563
+次数 求和值为SUM(D2:D14)=4004.7261561561563
+</code></pre>
+<p>【注意】</p>
+<p>即使设置了 data_only&#x3D;True，也不能立即获取到刚刚添加的公式计算后的结果，需要自己 手动&#x2F;添加代码 打开下 对应excel表格，然后 ctrl s保存下，再运行上面代码才能获取到对应公式计算后的值。</p>
+<p>你可以使用下面代码自动打开指定 excel 文件然后保存使写入的公式生效，使用前你需要安装 xlwings，输入<code>pip3 install xlwings</code>即可，再后面我们也会学习这个模块。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 xlwings 打开 excel 文件然后保存 使写入的 公式生效</span></span><br><span class="line"><span class="keyword">import</span> xlwings <span class="keyword">as</span> xw </span><br><span class="line"><span class="comment"># 打开工作簿</span></span><br><span class="line">app = xw.App(visible=<span class="literal">False</span>, add_book=<span class="literal">False</span>)</span><br><span class="line">wb = app.books.<span class="built_in">open</span>(<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)  </span><br><span class="line">wb.save()</span><br><span class="line"><span class="comment"># 关闭工作簿</span></span><br><span class="line">wb.close()</span><br><span class="line">app.quit()</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-3-插入空列-x2F-行"><a href="#2-2-3-插入空列-x2F-行" class="headerlink" title="2.2.3 插入空列&#x2F;行"></a>2.2.3 插入空列&#x2F;行</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取指定 sheet</span></span><br><span class="line">sheet = exl_1[<span class="string">&#x27;Sheet3&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 插入列数据 insert_cols(idx,amount=1)</span></span><br><span class="line"><span class="comment"># idx是插入位置，amount是插入列数，默认是1</span></span><br><span class="line"><span class="comment"># idx=2第2列，第2列前插入一列</span></span><br><span class="line">sheet.insert_cols(idx=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 第2列前插入5</span></span><br><span class="line"><span class="comment"># sheet.insert_cols(idx=2, amount=5)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 插入行数据 insert_rows(idx,amount=1)</span></span><br><span class="line"><span class="comment"># idx是插入位置，amount是插入行数，默认是1</span></span><br><span class="line"><span class="comment"># 在第二行前插入一行</span></span><br><span class="line">sheet.insert_rows(idx=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 第2行前插入5行</span></span><br><span class="line"><span class="comment"># sheet.insert_rows(idx=2, amount=5)</span></span><br><span class="line"></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-4-删除"><a href="#2-2-4-删除" class="headerlink" title="2.2.4 删除"></a>2.2.4 删除</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除多列</span></span><br><span class="line">sheet.delete_cols(idx=<span class="number">5</span>, amount=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 删除多行</span></span><br><span class="line">sheet.delete_rows(idx=<span class="number">2</span>, amount=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-5-移动"><a href="#2-2-5-移动" class="headerlink" title="2.2.5 移动"></a>2.2.5 移动</h3><p>当数字为正即向下或向右，为负即为向上或向左</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 移动</span></span><br><span class="line"><span class="comment"># 当数字为正即向下或向右，为负即为向上或向左</span></span><br><span class="line">sheet.move_range(<span class="string">&#x27;B3:E16&#x27;</span>,rows=<span class="number">1</span>,cols=-<span class="number">1</span>)</span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-Excel-样式"><a href="#2-3-Excel-样式" class="headerlink" title="2.3 Excel 样式"></a>2.3 Excel 样式</h2><p> 项目难度：⭐⭐</p>
+<h3 id="2-3-1设置字体样式"><a href="#2-3-1设置字体样式" class="headerlink" title="2.3.1设置字体样式"></a>2.3.1设置字体样式</h3><h4 id="1-设置单个-cell-单元格-字体样式"><a href="#1-设置单个-cell-单元格-字体样式" class="headerlink" title="1. 设置单个 cell(单元格) 字体样式"></a>1. 设置单个 cell(单元格) 字体样式</h4><p>   <code>Font(name字体名称,size大小,bold粗体,italic斜体,color颜色)</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 导入 openpyxl 中的 load_workbook 函数</span></span><br><span class="line"><span class="comment">#    导入 openpyxl 中的  styles 模块中的 Font 类</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl.styles <span class="keyword">import</span> Font</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 获取指定 excel文件对象 Workbook</span></span><br><span class="line">exl_1 = load_workbook(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment"># 3) 通过指定 sheetname 从 Workbook 中获取 sheet 对象 Worksheet</span></span><br><span class="line">sheet = exl_1[<span class="string">&#x27;订单时长分布&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4) 获取到指定 cell 后，查看cell字体属性</span></span><br><span class="line">cell = sheet[<span class="string">&#x27;A1&#x27;</span>]</span><br><span class="line">cell.font</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;openpyxl.styles.fonts.Font object&gt;
+Parameters:
+name=&#39;宋体&#39;, charset=134, family=3.0, b=True, i=False, strike=None, outline=None, shadow=None, condense=None, color=&lt;openpyxl.styles.colors.Color object&gt;
+Parameters:
+rgb=None, indexed=None, auto=None, theme=1, tint=0.0, type=&#39;theme&#39;, extend=None, sz=11.0, u=None, vertAlign=None, scheme=&#39;minor&#39;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5) 实例化一个 Font 对象，设置字体样式</span></span><br><span class="line"><span class="comment">#    字体改为：黑体  大小改为：20  设置为：加粗 斜体 红色</span></span><br><span class="line">font = Font(name=<span class="string">&#x27;黑体&#x27;</span>, size=<span class="number">20</span>, bold=<span class="literal">True</span>, italic=<span class="literal">True</span>, color=<span class="string">&#x27;FF0000&#x27;</span>)</span><br><span class="line">cell.font = font</span><br><span class="line"><span class="comment"># 6) 保存修改 </span></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-设置多个-cell-的字体样式"><a href="#2-设置多个-cell-的字体样式" class="headerlink" title="2. 设置多个 cell 的字体样式"></a>2. 设置多个 cell 的字体样式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上面我们已经获取到了 &#x27;用户行为偏好_1.xlsx&#x27; 中的 订单时长分布 工作表</span></span><br><span class="line"><span class="comment"># 我们处理了 单元格 A1 的字体样式，我们也可以通过遍历的形式，批量设置单元格字体样式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1) 获取要处理的单元格 </span></span><br><span class="line"><span class="comment">#    通过 sheet 索引获取第二行 cell</span></span><br><span class="line"><span class="comment">#    获取列可以用 字母索引，如 sheet[&#x27;A&#x27;] 获取第一列 cell</span></span><br><span class="line">cells = sheet[<span class="number">2</span>]</span><br><span class="line"><span class="comment"># 2) 实例化一个 Font 对象，设置字体样式</span></span><br><span class="line"><span class="comment">#    字体改为：黑体  大小改为：10  设置为：加粗 斜体 红色</span></span><br><span class="line">font = Font(name=<span class="string">&#x27;黑体&#x27;</span>, size=<span class="number">10</span>, bold=<span class="literal">True</span>, italic=<span class="literal">True</span>, color=<span class="string">&#x27;FF0000&#x27;</span>)</span><br><span class="line"><span class="comment"># 3) 遍历给每一个 cell 都设置上对应字体样式</span></span><br><span class="line"><span class="keyword">for</span> cell <span class="keyword">in</span> cells:</span><br><span class="line">    cell.font = font</span><br><span class="line"><span class="comment"># 4) 保存修改</span></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-2-设置边框样式"><a href="#2-3-2-设置边框样式" class="headerlink" title="2.3.2 设置边框样式"></a>2.3.2 设置边框样式</h3><h4 id="1-设置单元格边框样式"><a href="#1-设置单元格边框样式" class="headerlink" title="1. 设置单元格边框样式"></a>1. 设置单元格边框样式</h4><p><code>Side</code>：边线样式设置类，边线颜色等</p>
+<p>Side(style&#x3D;None, color&#x3D;None, border_style&#x3D;None)</p>
+<ul>
+<li>style：边线的样式，有以下值可选：double, mediumDashDotDot, slantDashDot, dashDotDot, dotted, hair, mediumDashed, dashed, dashDot, thin, mediumDashDot, medium, thick</li>
+<li>color：边线颜色</li>
+<li>border_style：style 的别名，必须设置，一般直接设置 border_style 就行，不用设置 style</li>
+</ul>
+<p><code>Border</code>：边框定位类，左右上下边线</p>
+<p>Border常用参数解释：</p>
+<ul>
+<li>top bottom left right diagonal：上下左右和对角线的边线样式，为 Side 对象</li>
+<li>diagonalDown：对角线从左上角向右下角方向，默认为 False</li>
+<li>diagonalUp：对角线从右上角向左下角方向，默认为 False</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上面我们已经获取到了 &#x27;用户行为偏好_1.xlsx&#x27; 中的 订单时长分布 工作表 sheet</span></span><br><span class="line"><span class="comment"># 1) 导入 openpyxl 中的  styles 模块中的 Side, Border 类</span></span><br><span class="line"><span class="keyword">from</span> openpyxl.styles <span class="keyword">import</span> Side, Border</span><br><span class="line"><span class="comment"># 2) 首先初始化一个边线对象（也可以设置多个）</span></span><br><span class="line">side = Side(border_style=<span class="string">&#x27;double&#x27;</span>, color=<span class="string">&#x27;FF000000&#x27;</span>)</span><br><span class="line"><span class="comment"># 3) 通过 Border 去设置 整个单元格边框样式</span></span><br><span class="line">border = Border(left=side, right=side, top=side, bottom=side, diagonal=side, diagonalDown=<span class="literal">True</span>, diagonalUp=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4) 查看目前单元格边框样式</span></span><br><span class="line"><span class="comment"># 获取第一行 cells</span></span><br><span class="line">cells = sheet[<span class="number">1</span>]</span><br><span class="line"><span class="comment"># 取出一个 cell 看边框样式</span></span><br><span class="line">cells[<span class="number">0</span>].border</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&lt;openpyxl.styles.borders.Border object&gt;
+Parameters:
+outline=True, diagonalUp=False, diagonalDown=False, start=None, end=None, left=&lt;openpyxl.styles.borders.Side object&gt;
+Parameters:
+style=None, color=None, right=&lt;openpyxl.styles.borders.Side object&gt;
+Parameters:
+style=None, color=None, top=&lt;openpyxl.styles.borders.Side object&gt;
+Parameters:
+style=None, color=None, bottom=&lt;openpyxl.styles.borders.Side object&gt;
+Parameters:
+style=None, color=None, diagonal=&lt;openpyxl.styles.borders.Side object&gt;
+Parameters:
+style=None, color=None, vertical=None, horizontal=None
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5) 修改边框样式，并保存修改</span></span><br><span class="line"><span class="keyword">for</span> cell <span class="keyword">in</span> cells:</span><br><span class="line">    cell.border = border</span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-3-设置单元格其他样式"><a href="#2-3-3-设置单元格其他样式" class="headerlink" title="2.3.3 设置单元格其他样式"></a>2.3.3 设置单元格其他样式</h3><h4 id="1-设置单元格背景色"><a href="#1-设置单元格背景色" class="headerlink" title="1. 设置单元格背景色"></a>1. 设置单元格背景色</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上面我们已经获取到了 &#x27;用户行为偏好_1.xlsx&#x27; 中的 订单时长分布 工作表 sheet</span></span><br><span class="line"><span class="comment"># 1) 从 openpyxl.styles 中导入 背景颜色设置类 PatternFill, GradientFill</span></span><br><span class="line"><span class="keyword">from</span> openpyxl.styles <span class="keyword">import</span> PatternFill, GradientFill</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 实例化 PatternFill 对象，fill_type 参数必须指定</span></span><br><span class="line">pattern_fill = PatternFill(fill_type=<span class="string">&#x27;solid&#x27;</span>,fgColor=<span class="string">&quot;DDDDDD&quot;</span>)</span><br><span class="line"><span class="comment"># 3) 实例化 GradientFill 对象，填充类型 type 默认为 linear</span></span><br><span class="line">gradient_fill = GradientFill(stop=(<span class="string">&#x27;FFFFFF&#x27;</span>, <span class="string">&#x27;99ccff&#x27;</span>,<span class="string">&#x27;000000&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4) 获取指定 cells 遍历填充</span></span><br><span class="line"><span class="comment"># 对第三行 PatternFill 模式设置背景色</span></span><br><span class="line">cells = sheet[<span class="number">3</span>]</span><br><span class="line"><span class="keyword">for</span> cell <span class="keyword">in</span> cells:</span><br><span class="line">    cell.fill = pattern_fill</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对第四行 GradientFill 模式设置背景色</span></span><br><span class="line">cells = sheet[<span class="number">4</span>]</span><br><span class="line"><span class="keyword">for</span> cell <span class="keyword">in</span> cells:</span><br><span class="line">    cell.fill = gradient_fill</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5) 保存修改</span></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-设置水平居中"><a href="#2-设置水平居中" class="headerlink" title="2.设置水平居中"></a>2.设置水平居中</h4><p>openpyxl.styles 中的 Alignment 类常用参数介绍：</p>
+<ul>
+<li>horizontal：水平对齐，常见值 <code>distributed, justify, center, left, fill, centerContinuous, right, general</code></li>
+<li>vertical：垂直对齐，常见值 <code>bottom, distributed, justify, center, top</code></li>
+<li>textRotation：文字旋转角度，数值：0-180</li>
+<li>wrapText：是否自动换行，bool值，默认 False</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上面我们已经获取到了 &#x27;用户行为偏好_1.xlsx&#x27; 中的 订单时长分布 工作表 sheet</span></span><br><span class="line"><span class="comment"># 1) 从 openpyxl.styles 中导入 对齐方式设置类 Alignment</span></span><br><span class="line"><span class="keyword">from</span> openpyxl.styles <span class="keyword">import</span> Alignment</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 实例化一个 Alignment 对象，设置水平、垂直居中</span></span><br><span class="line">alignment = Alignment(horizontal=<span class="string">&#x27;center&#x27;</span>, vertical=<span class="string">&#x27;center&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3) 获取指定 cells 遍历填充</span></span><br><span class="line"><span class="comment"># 对第五行数据设置上面的对齐方式</span></span><br><span class="line">cells = sheet[<span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span> cell <span class="keyword">in</span> cells:</span><br><span class="line">    cell.alignment = alignment</span><br><span class="line"><span class="comment"># 4) 保存修改</span></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-设置行高与列宽"><a href="#3-设置行高与列宽" class="headerlink" title="3. 设置行高与列宽"></a>3. 设置行高与列宽</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 设置行高，通过 row_dimensions 和 column_dimensions 来获取行和列对象</span></span><br><span class="line"><span class="comment"># 2) 设置第1行行高为 30</span></span><br><span class="line">sheet.row_dimensions[<span class="number">1</span>].height = <span class="number">30</span></span><br><span class="line"><span class="comment"># 3) 设置第3列列款为 24</span></span><br><span class="line">sheet.column_dimensions[<span class="string">&#x27;C&#x27;</span>].width = <span class="number">24</span></span><br><span class="line"><span class="comment"># 4) 保存修改</span></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-3-合并、取消合并单元格"><a href="#2-3-3-合并、取消合并单元格" class="headerlink" title="2.3.3 合并、取消合并单元格"></a>2.3.3 合并、取消合并单元格</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意：合并后的单元格只会显示合并区域中最右上角的单元格的值，会导致其他单元格内容丢失</span></span><br><span class="line"><span class="comment"># 上面我们已经获取到了 &#x27;用户行为偏好_1.xlsx&#x27; 对象 exl_1，我们可以通过 exl_1 来索引获取自己想要的 sheet</span></span><br><span class="line"><span class="comment"># 1) 获取 Sheet3 这个工作表</span></span><br><span class="line">sheet = exl_1[<span class="string">&#x27;Sheet3&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并指定区域单元格</span></span><br><span class="line">sheet.merge_cells(<span class="string">&#x27;A1:B2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># sheet.merge_cells(start_row=1, start_column=3,</span></span><br><span class="line"><span class="comment">#                  end_row=2, end_column=4)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存修改</span></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解除合并</span></span><br><span class="line">sheet.unmerge_cells(<span class="string">&#x27;A1:B2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># sheet.unmerge_cells(start_row=1, start_column=3,</span></span><br><span class="line"><span class="comment">#                     end_row=2, end_column=4)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存修改</span></span><br><span class="line">exl_1.save(filename=root_path+<span class="string">&#x27;用户行为偏好_1.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-5-练习题"><a href="#2-3-5-练习题" class="headerlink" title="2.3.5 练习题"></a>2.3.5 练习题</h3><p>打开 test.xlsx 文件，找出文件中购买数量 <code>buy_mount</code> 超过5的单元格，并对其标红、加粗、加上红色边框。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 导入 openpyxl 相关函数和类</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook</span><br><span class="line"><span class="keyword">from</span> openpyxl.styles <span class="keyword">import</span> Font, Side, Border</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 读取 test.xlsx 文件，并筛选出 buy_mount 这一列</span></span><br><span class="line">workbook = load_workbook(root_path+<span class="string">&#x27;test.xlsx&#x27;</span>)</span><br><span class="line">sheet = workbook.active</span><br><span class="line">buy_mount = sheet[<span class="string">&#x27;B&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3) 设置边框 文字样式</span></span><br><span class="line">side = Side(style=<span class="string">&#x27;thin&#x27;</span>, color=<span class="string">&#x27;FF0000&#x27;</span>)</span><br><span class="line">border = Border(left=side, right=side, top=side, bottom=side)</span><br><span class="line">font = Font(bold=<span class="literal">True</span>, color=<span class="string">&#x27;FF0000&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4) 遍历判断 cell 值是否满足筛选条件</span></span><br><span class="line"><span class="keyword">for</span> cell <span class="keyword">in</span> buy_mount:</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(cell.value, <span class="built_in">float</span>) <span class="keyword">and</span> cell.value &gt; <span class="number">5</span>:</span><br><span class="line">        cell.font = font</span><br><span class="line">        cell.border = border</span><br><span class="line"><span class="comment"># 5) 修改内容另存为 new_test.xlsx</span></span><br><span class="line">workbook.save(root_path+<span class="string">&#x27;new_test.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-综合练习"><a href="#2-4-综合练习" class="headerlink" title="2.4 综合练习"></a>2.4 综合练习</h2><h3 id="2-4-1-将-业务联系表-xlsx-拆分成以下两个-excel："><a href="#2-4-1-将-业务联系表-xlsx-拆分成以下两个-excel：" class="headerlink" title="2.4.1 将 业务联系表.xlsx 拆分成以下两个 excel："></a>2.4.1 将 业务联系表.xlsx 拆分成以下两个 excel：</h3><ul>
+<li>客户信息表：客户名称 客户地址 客户方负责人 性别 联系电话 对接业务经理编号</li>
+<li>业务经理信息表：业务经理编号 所在分区 所在区域 业务经理姓名</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 导入 openpyxl 相关函数和类</span></span><br><span class="line"><span class="keyword">from</span> openpyxl <span class="keyword">import</span> load_workbook, Workbook</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) 读取原表数据</span></span><br><span class="line">wb = load_workbook(root_path+<span class="string">&#x27;业务联系表.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment"># 3) 获取工作表</span></span><br><span class="line">sheet = wb.active</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 草稿纸 </span></span><br><span class="line"><span class="comment"># 我们知道我们表格的实际列名在第二行</span></span><br><span class="line"><span class="comment"># 获取每列第二行的坐标和值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sheet[<span class="number">2</span>]:</span><br><span class="line">    <span class="built_in">print</span>(i.coordinate, i.value)</span><br></pre></td></tr></table></figure>
+
+<pre><code>A2 业务经理编号
+B2 分区
+C2 区域
+D2 业务经理
+E2 客户名称
+F2 客户地址
+G2 客户方负责人
+H2 性别
+I2 联系电话
+J2 备注
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sheet.max_column, sheet.max_row</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>(10, 57)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4) 筛选出需要的列</span></span><br><span class="line"><span class="comment"># 4.1) 客户信息表：客户名称 客户地址 客户方负责人 性别 联系电话 备注 对接业务经理编号</span></span><br><span class="line">cust_info = &#123;<span class="string">&#x27;业务经理编号&#x27;</span>: <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;客户名称&#x27;</span>: <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;客户地址&#x27;</span>: <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;客户方负责人&#x27;</span>: <span class="string">&#x27;D&#x27;</span>, <span class="string">&#x27;性别&#x27;</span>: <span class="string">&#x27;E&#x27;</span>, <span class="string">&#x27;联系电话&#x27;</span>: <span class="string">&#x27;F&#x27;</span>, <span class="string">&#x27;备注&#x27;</span>: <span class="string">&#x27;G&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.2) 新建一个工作簿，并将默认sheet名称改成 客户信息</span></span><br><span class="line">cust_info_excel = Workbook()</span><br><span class="line">cust_info_sh = cust_info_excel.active</span><br><span class="line">cust_info_sh.title = <span class="string">&#x27;客户信息&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 4.3) 遍历筛选，如果是需要的表头，就将该列的值复制到新的工作簿中的 客户信息 工作表中</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sheet[<span class="number">2</span>]:</span><br><span class="line">    <span class="keyword">if</span> i.value <span class="keyword">in</span> cust_info:</span><br><span class="line">        <span class="comment"># 遍历将这一列中除了第一个cell外的所有cell值复制到新表</span></span><br><span class="line">        <span class="keyword">for</span> cell <span class="keyword">in</span> sheet[i.coordinate[<span class="number">0</span>]]:</span><br><span class="line">            <span class="keyword">if</span> cell.row == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            cust_info_sh[<span class="string">f&#x27;<span class="subst">&#123;cust_info[i.value]&#125;</span><span class="subst">&#123;cell.row-<span class="number">1</span>&#125;</span>&#x27;</span>].value = cell.value</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5) 筛选出需要的列</span></span><br><span class="line"><span class="comment"># 5.1) 业务经理信息表：业务经理编号 所在分区 所在区域 业务经理姓名</span></span><br><span class="line">manager_info = &#123;<span class="string">&#x27;业务经理编号&#x27;</span>: <span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;分区&#x27;</span>: <span class="string">&#x27;B&#x27;</span>, <span class="string">&#x27;区域&#x27;</span>: <span class="string">&#x27;C&#x27;</span>, <span class="string">&#x27;业务经理&#x27;</span>: <span class="string">&#x27;D&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.2) 新建一个工作簿，并将默认sheet名称改成 客户信息</span></span><br><span class="line">manager_info_excel = Workbook()</span><br><span class="line">manager_info_sh = manager_info_excel.active</span><br><span class="line">manager_info_sh.title = <span class="string">&#x27;业务经理信息&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 5.3) 遍历筛选，如果是需要的表头，就将该列的值复制到新的工作簿中的 业务经理信息 工作表中</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> sheet[<span class="number">2</span>]:</span><br><span class="line">    <span class="keyword">if</span> i.value <span class="keyword">in</span> manager_info:</span><br><span class="line">        <span class="comment"># 遍历将这一列中除了第一个cell外的所有cell值复制到新表</span></span><br><span class="line">        <span class="keyword">for</span> cell <span class="keyword">in</span> sheet[i.coordinate[<span class="number">0</span>]]:</span><br><span class="line">            <span class="keyword">if</span> cell.row == <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            manager_info_sh[<span class="string">f&#x27;<span class="subst">&#123;manager_info[i.value]&#125;</span><span class="subst">&#123;cell.row-<span class="number">1</span>&#125;</span>&#x27;</span>].value = cell.value</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 6.1 ) 保存 客户信息表 工作簿内容</span></span><br><span class="line">cust_info_excel.save(root_path+<span class="string">&#x27;客户信息表_xl.xlsx&#x27;</span>)</span><br><span class="line"><span class="comment"># 6.2) 保存 业务经理信息表 工作簿内容</span></span><br><span class="line">manager_info_excel.save(root_path+<span class="string">&#x27;业务经理信息表_xl.xlsx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>以上，虽然完成了数据拆分，但是对于进一步数据处理，继续使用 openpyxl 并不是很便捷，比如数据去重，筛选等，接下来我将给大家介绍如何使用 pandas 更便捷的处理 excel 数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1) 读取数据</span></span><br><span class="line">data = pd.read_excel(root_path+<span class="string">&#x27;业务联系表.xlsx&#x27;</span>, header=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2) 数据筛选处理</span></span><br><span class="line"><span class="comment"># 2.1) 客户信息表</span></span><br><span class="line"><span class="comment"># 筛选出 客户信息表 需要的列</span></span><br><span class="line">cust_info_pd = data[[<span class="string">&#x27;业务经理编号&#x27;</span>, <span class="string">&#x27;客户名称&#x27;</span>, <span class="string">&#x27;客户地址&#x27;</span>, <span class="string">&#x27;客户方负责人&#x27;</span>, <span class="string">&#x27;性别&#x27;</span>, <span class="string">&#x27;联系电话&#x27;</span>, <span class="string">&#x27;备注&#x27;</span>]]</span><br><span class="line"><span class="comment"># 去除重复行</span></span><br><span class="line">cust_info_pd.drop_duplicates(inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 打印出前三行</span></span><br><span class="line">cust_info_pd.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>业务经理编号</th>
+      <th>客户名称</th>
+      <th>客户地址</th>
+      <th>客户方负责人</th>
+      <th>性别</th>
+      <th>联系电话</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>尹承望</td>
+      <td>*****-*****-****</td>
+      <td>孙康适</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>何茂材</td>
+      <td>*****-*****-****</td>
+      <td>孙康适</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>徐新霁</td>
+      <td>*****-*****-****</td>
+      <td>孙康适</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2.2) 业务经理信息表</span></span><br><span class="line"><span class="comment"># 筛选出 业务经理信息表 需要的列，并打印出前三行</span></span><br><span class="line">manager_info_pd = data[[<span class="string">&#x27;业务经理编号&#x27;</span>, <span class="string">&#x27;分区&#x27;</span>, <span class="string">&#x27;区域&#x27;</span>, <span class="string">&#x27;业务经理&#x27;</span>]]</span><br><span class="line"><span class="comment"># 去除重复行</span></span><br><span class="line">manager_info_pd.drop_duplicates(inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 打印出前三行</span></span><br><span class="line">manager_info_pd.head(<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>业务经理编号</th>
+      <th>分区</th>
+      <th>区域</th>
+      <th>业务经理</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>占亮</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>李朝华</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>3</td>
+      <td>北区</td>
+      <td>河北</td>
+      <td>王一磊</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 3) 数据保存</span></span><br><span class="line">cust_info_pd.to_excel(root_path+<span class="string">&#x27;客户信息表_pd.xlsx&#x27;</span>, index=<span class="literal">None</span>)</span><br><span class="line">manager_info_pd.to_excel(root_path+<span class="string">&#x27;业务经理信息表_pd.xlsx&#x27;</span>, index=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-2-将-客户信息表-xlsx-和-客户关系表-xlsx-合并成一个excel"><a href="#2-4-2-将-客户信息表-xlsx-和-客户关系表-xlsx-合并成一个excel" class="headerlink" title="2.4.2 将 客户信息表.xlsx 和 客户关系表.xlsx 合并成一个excel"></a>2.4.2 将 客户信息表.xlsx 和 客户关系表.xlsx 合并成一个excel</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 接上面的，将 客户信息表.xlsx 和 客户关系表.xlsx 合并成一个excel</span></span><br><span class="line"><span class="comment"># 这里我们依然用 pandas 来处理</span></span><br><span class="line">business_contact = pd.merge(manager_info_pd, cust_info_pd, on=<span class="string">&#x27;业务经理编号&#x27;</span>)</span><br><span class="line"><span class="comment"># 查看合并后数据基本信息</span></span><br><span class="line">business_contact.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+Int64Index: 55 entries, 0 to 54
+Data columns (total 10 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   业务经理编号  55 non-null     int64  
+ 1   分区      55 non-null     object 
+ 2   区域      55 non-null     object 
+ 3   业务经理    55 non-null     object 
+ 4   客户名称    55 non-null     object 
+ 5   客户地址    55 non-null     object 
+ 6   客户方负责人  55 non-null     object 
+ 7   性别      55 non-null     object 
+ 8   联系电话    55 non-null     object 
+ 9   备注      0 non-null      float64
+dtypes: float64(1), int64(1), object(8)
+memory usage: 4.7+ KB
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看前10条数据</span></span><br><span class="line">business_contact.head(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>业务经理编号</th>
+      <th>分区</th>
+      <th>区域</th>
+      <th>业务经理</th>
+      <th>客户名称</th>
+      <th>客户地址</th>
+      <th>客户方负责人</th>
+      <th>性别</th>
+      <th>联系电话</th>
+      <th>备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>占亮</td>
+      <td>尹承望</td>
+      <td>*****-*****-****</td>
+      <td>孙康适</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>占亮</td>
+      <td>何茂材</td>
+      <td>*****-*****-****</td>
+      <td>孙康适</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>占亮</td>
+      <td>徐新霁</td>
+      <td>*****-*****-****</td>
+      <td>孙康适</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>占亮</td>
+      <td>郭承悦</td>
+      <td>*****-*****-****</td>
+      <td>邓翰翮</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>占亮</td>
+      <td>梁浩思</td>
+      <td>*****-*****-****</td>
+      <td>邓翰翮</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>李朝华</td>
+      <td>毛英朗</td>
+      <td>*****-*****-****</td>
+      <td>邓翰翮</td>
+      <td>男</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>李朝华</td>
+      <td>侯俊美</td>
+      <td>*****-*****-****</td>
+      <td>任敏智</td>
+      <td>女</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>2</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>李朝华</td>
+      <td>许高轩</td>
+      <td>*****-*****-****</td>
+      <td>任敏智</td>
+      <td>女</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>李朝华</td>
+      <td>段英豪</td>
+      <td>*****-*****-****</td>
+      <td>任敏智</td>
+      <td>女</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>2</td>
+      <td>南区</td>
+      <td>贵州</td>
+      <td>李朝华</td>
+      <td>汤承福</td>
+      <td>*****-*****-****</td>
+      <td>任敏智</td>
+      <td>女</td>
+      <td>***-****-***</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据保存</span></span><br><span class="line">manager_info_pd.to_excel(root_path+<span class="string">&#x27;业务联系表_pd.xlsx&#x27;</span>, index=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-5-后记"><a href="#2-5-后记" class="headerlink" title="2.5 后记"></a>2.5 后记</h2><ul>
+<li>Python与Excel的自动化内容较多，此篇重在介绍基础，起到抛砖引玉的学习效果。</li>
+<li>后面还给大家介绍了 pandas 处理excel的案例，比较简单，大家实际工作、学习中可以按自己需要使用不同框架</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/openpyxl/" rel="tag"># openpyxl</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/11/27/Switch/" rel="prev" title="Switch">
+                  <i class="fa fa-chevron-left"></i> Switch
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">DL</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+
+</body>
+</html>
